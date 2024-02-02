@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel server.js -d distro && cd distro && npm start",
+    "build": "babel server.js -d distro",
     "start": "node distro/server.js"
   },
   "keywords": [],
