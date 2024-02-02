@@ -9,6 +9,44 @@ on:
 jobs:
 
   ### Build Backend (Node.js)
+  build-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+        # for npm
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+        
+      - name: Install Backend Dependencies
+        working-directory: ./backend
+        run: |
+          npm ci
+
+      - name: Compile & Start Backend Server
+        working-directory: ./backend
+        run: |
+          npm run build
+          SERVER_PID=$!
+          sleep 5
+          kill $SERVER_PID
+
+        # zip step-- compress artifact (too large)
+      - name: Zip Artifact Before Uploading
+        working-directory: ./backend
+        run: zip release.zip ./* -r
+
+        # upload to be used later in the proceses
+      - name: Upload Backend Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: backend-build-artifact
+          path: backend/release.zip
+
+        
   ### Build Frontend (React.js)
   build-frontend:
     runs-on: ubuntu-latest
@@ -25,7 +63,7 @@ jobs:
       - name: Install Frontend Dependencies
         working-directory: ./frontend
         run: |
-          npm install
+          npm ci
 
         # build frontend
       - name: Build Frontend
