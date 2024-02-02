@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel server.js -d distro && cd distro && npm start",
-    "start": "node server.js"
+    "start": "node distro/server.js"
   },
   "keywords": [],
   "author": "",
