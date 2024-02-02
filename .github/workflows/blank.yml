@@ -26,16 +26,11 @@ jobs:
         run: |
           npm ci
           
-        # Compiles backend using Babel
-      - name: Compile Backend
-        working-directory: ./backend
-        run: npm run build
-
         # starts server to check for basic compilation issues
       - name: Start Compiled Server & Kill 
         working-directory: ./backend
         run: |
-          node distro/server.js &
+          node server.js & 
           SERVER_PID=$!
           sleep 5
           kill $SERVER_PID
