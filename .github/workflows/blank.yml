@@ -1,0 +1,48 @@
+name: PERN CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+
+  ### Build Backend (Node.js)
+  ### Build Frontend (React.js)
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+        # for npm
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+        # install frontend dependencies from package.json
+      - name: Install Frontend Dependencies
+        working-directory: ./frontend
+        run: |
+          npm install
+
+        # build frontend
+      - name: Build Frontend
+        working-directory: ./frontend
+        run: |
+          npm run build
+
+        # zip step-- compress artifact
+      - name: Zip Artifact Before Uploading
+        working-directory: ./frontend
+        run: zip release.zip ./* -r
+
+        # upload to be used later in the process
+      - name: Upload Frontend Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend-build-artifact
+          path: frontend/release.zip
+
+      
