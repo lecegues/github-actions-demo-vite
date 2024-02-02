@@ -9,8 +9,8 @@ const logger = winston.createLogger({
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.printf(
-      (info) => `${info.timestamp} ${info.level}: ${info.message}`
-    )
+      (info) => `${info.timestamp} ${info.level}: ${info.message}`,
+    ),
   ),
   transports: [
     new winston.transports.Console(),
@@ -32,7 +32,7 @@ const sequelize = new Sequelize(
   process.env.POSTGRES_DB,
   process.env.POSTGRES_USER,
   process.env.POSTGRES_PASSWORD,
-  { host: "localhost", dialect: "postgres" }
+  { host: "localhost", dialect: "postgres" },
 );
 // test db
 sequelize
@@ -43,7 +43,7 @@ sequelize
     process.exit(1); // Exit with a failure code
   });
 
-app.use(express.json());
+app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res) => {
