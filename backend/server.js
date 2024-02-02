@@ -4,7 +4,7 @@ const dotenv = require("dotenv").config();
 
 // setting up your port
 const PORT = 8080;
-const app = expres();
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
