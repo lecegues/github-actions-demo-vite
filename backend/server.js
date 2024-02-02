@@ -1,6 +1,6 @@
-const express = require("express");
-const { Sequelize } = require("sequelize");
-const dotenv = require("dotenv").config();
+const express = require('express');
+const { Sequelize } = require('sequelize');
+require('dotenv').config();
 
 // setting up your port
 const PORT = 8080;
@@ -17,14 +17,14 @@ const sequelize = new Sequelize(
   process.env.POSTGRES_DB,
   process.env.POSTGRES_USER,
   process.env.POSTGRES_PASSWORD,
-  { host: "localhost", dialect: "postgres" }
+  { host: 'localhost', dialect: 'postgres' },
 );
 // test db
 sequelize
   .authenticate()
-  .then(() => console.log("Connection has been established successfully."))
+  .then(() => console.log('Connection has been established successfully.'))
   .catch((error) => {
-    console.error("Unable to connect to the database:", error);
+    console.error('Unable to connect to the database:', error);
     process.exit(1); // Exit with a failure code
   });
 
@@ -32,7 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res) => {
-  res.send("Hello World");
+  res.send('Hello World');
 });
 
 // listening to server connection
