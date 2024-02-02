@@ -9,6 +9,24 @@ on:
 jobs:
 
   ### Build Backend (Node.js)
+  build-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+        # for npm
+      - name: Set up Nodee.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+        
+      - name: Install Backend Dependencies
+        working-directory: ./backend
+        run: |
+          npm ci
+
+        
   ### Build Frontend (React.js)
   build-frontend:
     runs-on: ubuntu-latest
