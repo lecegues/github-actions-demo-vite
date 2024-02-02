@@ -6,12 +6,19 @@ const dotenv = require("dotenv").config();
 const PORT = 8080;
 const app = express();
 
-// set up db
+/*
 const sequelize = new Sequelize("testdb", "test-user", "password", {
   host: "localhost",
   dialect: "postgres",
 });
+*/
 
+const sequelize = new Sequelize(
+  process.env.POSTGRES_DB,
+  process.env.POSTGRES_USER,
+  process.env.POSTGRES_PASSWORD,
+  { host: "localhost", dialect: "postgres" }
+);
 // test db
 sequelize
   .authenticate()
