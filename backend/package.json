@@ -8,6 +8,18 @@
     "lint": "eslint . --fix --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "start": "node server.js"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -21,6 +33,8 @@
     "winston": "^3.11.0"
   },
   "devDependencies": {
-    "eslint": "^7.32.0"
+    "eslint": "^7.32.0",
+    "husky": "^9.0.10",
+    "prettier": "^3.2.4"
   }
 }
